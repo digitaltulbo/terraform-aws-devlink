@@ -1,14 +1,16 @@
 // Create nat gateway
 resource "aws_eip" "nat_ip" {
-  vpc = true
-  
+  domain = "vpc"
+    
+    lifecycle {
+    create_before_destroy = true
+    }
   tags = {
     Name = "NAT_IP"
   }
 }
-
 resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_eip.nat.id
+  allocation_id = aws_eip.nat_ip.id
   subnet_id     = aws_subnet.public_subnet_a.id
 
   tags = {
