@@ -2,10 +2,10 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.20.0"
 
-  cluster_name    = "my-eks"
+  cluster_name    = "devlink-eks"
   cluster_version = "1.27"
 
-  cluster_endpoint_private_access = true
+  cluster_endpoint_private_access = false
   cluster_endpoint_public_access  = true
 
   vpc_id     = module.vpc.vpc_id
@@ -50,7 +50,9 @@ module "eks" {
       capacity_type  = "SPOT"
     }
   }
-
+  source_security_group_ids = [
+        aws_security_group.bastion-sg.id
+      ]
   tags = {
     Environment = "staging"
   }
