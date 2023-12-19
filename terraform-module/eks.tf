@@ -25,7 +25,7 @@ module "eks" {
     vpc_security_group_ids = []
 		
 		# cluster-autoscaler에 사용 될 IAM 등록
-    iam_role_additional_policies = ["${local.iam_role_policy_prefix}/${module.iam_policy_autoscaling.name}"]
+    # iam_role_additional_policies = ["${local.iam_role_policy_prefix}/${module.iam_policy_autoscaling.name}"]
     }
   }
   
