@@ -21,13 +21,11 @@ module "eks" {
   #관리형 노드 그룹 사용 (기본 설정)
   eks_managed_node_group_defaults = {
     disk_size = 50
-
-    }
+  }
   
   
   # 관리형 노드 그룹 사용 (노드별 추가 설정)
   eks_managed_node_groups = {
-    
     general = {
       desired_size = 1
       min_size     = 1
