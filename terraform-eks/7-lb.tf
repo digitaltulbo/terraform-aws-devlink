@@ -4,7 +4,7 @@ resource "aws_lb" "web-lb"{
   name = "web-lb"
   internal = false	 # true = 내부(internal) / false = 외부(Internet-facing)
   load_balancer_type = "application" # Default - application, 다른 하나는 gateway
-  security_groups = [aws_security_group.mainVPC-sg.id]
+  security_groups = [aws_security_group.main-sg.id]
   subnets = [aws_subnet.private_subnet_a.id, aws_subnet.public_subnet_c.id]
 
   tags = {
@@ -51,7 +51,7 @@ resource "aws_lb" "app-lb"{
   name = "app-internal-lb"
   internal = true	 # true = 내부(internal) / false = 외부(Internet-facing)
   load_balancer_type = "application" # Default - application, 다른 하나는 gateway
-  security_groups = [aws_security_group.mainVPC-sg.id]
+  security_groups = [aws_security_group.main-sg.id]
   subnets = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_c.id]
 ##  depends_on = [aws_ami_from_instance.app-layer-AS-template-ami] # AppEC2 완전 생성 후 ALB 생성 시작
   tags = {

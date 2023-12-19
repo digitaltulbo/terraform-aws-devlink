@@ -32,7 +32,7 @@ resource "aws_launch_template" "web_launch_template" {
 
   network_interfaces {
     associate_public_ip_address = true
-    security_groups             = [aws_security_group.mainVPC-sg.id]
+    security_groups             = [aws_security_group.main-sg.id]
   }
 }
 
@@ -43,7 +43,7 @@ resource "aws_autoscaling_group" "web_asg" {
   max_size            = 2
   desired_capacity    = 2
   target_group_arns   = [aws_lb_target_group.web_lb_tg.arn]
-  vpc_zone_identifier = [aws_subnet.public_web_a.id, aws_subnet.public_web_c.id]
+  vpc_zone_identifier = [aws_subnet.public_subnet_a.id, aws_subnet.public_subnet_c.id]
 
   launch_template {
     id      = aws_launch_template.web_launch_template.id
@@ -62,7 +62,7 @@ resource "aws_launch_template" "app_launch_template" {
 
   network_interfaces {
     associate_public_ip_address = false
-    security_groups             = [aws_security_group.groomVPC-sg.id]
+    security_groups             = [aws_security_group.main-sg.id]
   }
 }
 
@@ -73,7 +73,7 @@ resource "aws_autoscaling_group" "app_asg" {
   max_size            = 2
   desired_capacity    = 2
   target_group_arns   = [aws_lb_target_group.app_lb_tg.arn]
-  vpc_zone_identifier = [aws_subnet.private_app_a.id, aws_subnet.private_app_c.id]
+  vpc_zone_identifier = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_c.id]
 
   launch_template {
     id      = aws_launch_template.app_launch_template.id

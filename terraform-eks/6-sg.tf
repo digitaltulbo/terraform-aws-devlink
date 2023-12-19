@@ -1,8 +1,8 @@
 
 # External ALB 보안 그룹 생성
-resource "aws_security_group" "mainVPC-sg" {
-  name = "mainVPC-sg"
-  description = "mainVPC Security Group"
+resource "aws_security_group" "main-sg" {
+  name = "main-sg"
+  description = "VPC Security Group"
   vpc_id = aws_vpc.main.id
 
     ingress {
