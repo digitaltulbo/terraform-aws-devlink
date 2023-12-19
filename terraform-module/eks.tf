@@ -22,7 +22,7 @@ module "eks" {
   #관리형 노드 그룹 사용 (기본 설정)
   eks_managed_node_group_defaults = {
     disk_size = 50
-    vpc_security_group_ids = []
+    # vpc_security_group_ids = []
 		
 		# cluster-autoscaler에 사용 될 IAM 등록
     # iam_role_additional_policies = ["${local.iam_role_policy_prefix}/${module.iam_policy_autoscaling.name}"]
