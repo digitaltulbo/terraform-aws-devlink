@@ -53,7 +53,7 @@ module "eks" {
     }
   }
 
-  #manage_aws_auth_configmap = true
+  manage_aws_auth_configmap = true
   
   # aws_auth_roles = [
   #   {
@@ -96,10 +96,6 @@ module "eks" {
 #       }
 
 #       # 생성되는 인스턴스에 tag추가
-#       tags = {
-#         "k8s.io/cluster-autoscaler/enabled" : "true"
-#         "k8s.io/cluster-autoscaler/${var.cluster_name}" : "true"
-#       }
 #     }
 #   }
 # }
