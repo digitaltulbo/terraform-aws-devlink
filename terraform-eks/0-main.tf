@@ -32,19 +32,3 @@ provider "kubernetes" {
     args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
   }
 }
-
-data "aws_availability_zones" "available" {}
-
-locals {
-  name            = "devlink"
-  cluster_version = "1.28"
-  region          = "ap-northeast-2"
-
-  vpc_cidr = "10.110.0.0/16"
-  azs      = slice(data.aws_availability_zones.available.names, 0, 2) # 가용성 2개, 비용절감목적
-
-  tags = {
-    env  = "env"
-    user = "jin"
-  }
-}
