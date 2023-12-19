@@ -1,9 +1,9 @@
 data "aws_caller_identity" "current" {}
 
-# locals {
-#   node_group_name        = "${var.cluster_name}-node-group"
-#   iam_role_policy_prefix = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy"
-# }
+locals {
+  node_group_name        = "${var.cluster_name}-node-group"
+  iam_role_policy_prefix = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy"
+}
 
 module "eks" {
   # 모듈 사용
