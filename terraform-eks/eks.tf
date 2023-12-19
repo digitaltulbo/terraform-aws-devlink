@@ -1,4 +1,4 @@
-resource "aws_iam_role" "devlink" {
+resource "aws_iam_role" "eks_devlink" {
     name = "eks-cluster-devlink"
 
     assume_role_policy = <<POLICY
