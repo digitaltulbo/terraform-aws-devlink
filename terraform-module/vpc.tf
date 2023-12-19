@@ -11,6 +11,9 @@ module "vpc" {
   # NAT게이트웨이를 1개만 생성합니다.
   single_nat_gateway = true
 
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
   public_subnets = [for index in range(2):
                       cidrsubnet(var.vpc_cidr, 4, index)]
 
