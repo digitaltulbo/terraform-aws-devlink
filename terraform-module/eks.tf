@@ -18,7 +18,6 @@ module "eks" {
   vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.private_subnets
   
-  enable_irsa = true
   #관리형 노드 그룹 사용 (기본 설정)
   eks_managed_node_group_defaults = {
     disk_size = 50
