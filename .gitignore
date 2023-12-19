@@ -1,0 +1,25 @@
+## Terraform
+
+terraform/.terraform/
+# Terraform
+**/.terraform
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+*gitignore*.tf
+.terraform/
+*.log
+*.bak
+.vagrant/
+crash.log
+
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+.DS_Store
+.vscode/
+.sentinel
+.terraformrc
+terraform.rc
