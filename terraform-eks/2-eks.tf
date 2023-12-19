@@ -50,9 +50,9 @@ module "eks" {
       capacity_type  = "SPOT"
     }
   }
-  source_security_group_ids = [
-        aws_security_group.bastion-sg.id
-      ]
+  # source_security_group_ids = [
+  #       aws_security_group.bastion-sg.id
+  #     ]
   tags = {
     Environment = "staging"
   }
