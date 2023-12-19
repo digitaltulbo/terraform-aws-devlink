@@ -19,12 +19,14 @@ module "eks" {
   subnet_ids      = module.vpc.private_subnets
   
   enable_irsa = true
-
+  #관리형 노드 그룹 사용 (기본 설정)
   eks_managed_node_group_defaults = {
     disk_size = 50
   }
-
+  
+  # 관리형 노드 그룹 사용 (노드별 추가 설정)
   eks_managed_node_groups = {
+    
     general = {
       desired_size = 1
       min_size     = 1
@@ -47,20 +49,14 @@ module "eks" {
         role = "spot"
       }
 
-      taints = [{
-        key    = "market"
-        value  = "spot"
-        effect = "NO_SCHEDULE"
-      }]
-
       instance_types = ["t3.micro"]
       capacity_type  = "SPOT"
     }
   }
 
   tags = {
-    Environment = "staging"
-  }
+    "k8s.io/cluster-autoscaler/enabled" : "true"
+    "k8s.io/cluster-autoscaler/${var.cluster_name}" : "true"  }
 }
 
 
