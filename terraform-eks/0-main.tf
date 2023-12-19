@@ -12,13 +12,13 @@ provider "aws" {
   region = "ap-northeast-2"
 }
 
-data "aws_eks_cluster" "default" {
-  name = module.eks.cluster_name
-}
+# data "aws_eks_cluster" "default" {
+#   name = module.eks.cluster_name
+# }
 
-data "aws_eks_cluster_auth" "default" {
-  name = module.eks.cluster_name
-}
+# data "aws_eks_cluster_auth" "default" {
+#   name = module.eks.cluster_name
+# }
 
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
@@ -32,3 +32,4 @@ provider "kubernetes" {
     args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
   }
 }
+

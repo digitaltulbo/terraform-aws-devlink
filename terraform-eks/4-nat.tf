@@ -1,5 +1,5 @@
 // Create nat gateway
-resource "aws_eip" "nat_ip" {
+resource "aws_eip" "nat" {
   domain = "vpc"
     
     lifecycle {
@@ -10,7 +10,7 @@ resource "aws_eip" "nat_ip" {
   }
 }
 resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_eip.nat_ip.id
+  allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public_subnet_a.id
 
   tags = {
