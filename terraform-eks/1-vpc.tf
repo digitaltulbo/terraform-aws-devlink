@@ -10,5 +10,5 @@ resource "aws_vpc" "main" {
 }
 
 locals {
-  cluster_name = "devlink-eks"
+  cluster_name = "devlink"
 }

@@ -2,17 +2,29 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.20.0"
 
-  cluster_name    = local.cluster_name
-  cluster_version = "1.28"
-
+  cluster_name                    = local.cluster_name
+  cluster_version                 = "1.28"
   cluster_endpoint_private_access = false
   cluster_endpoint_public_access  = true
+
+  cluster_addons = {
+    coredns = {
+      resolve_conflicts = "OVERWRITE"
+    }
+    kube-proxy = {}
+    vpc-cni = {
+      resolve_conflicts = "OVERWRITE"
+    }
+  }  
 
   vpc_id     = aws_vpc.main.id
   subnet_ids = [
     aws_subnet.private_subnet_a.id,
     aws_subnet.private_subnet_c.id,
   ]
+
+  cloudwatch_log_group_retention_in_days = 1
+ 
   enable_irsa = true
 
   eks_managed_node_group_defaults = {
