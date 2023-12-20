@@ -53,7 +53,7 @@ module "eks" {
     }
   }
 
-  manage_aws_auth_configmap = true
+  # manage_aws_auth_configmap = true 이것때문에 자꾸 오류남..
   
   # aws_auth_roles = [
   #   {
