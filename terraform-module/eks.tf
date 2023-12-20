@@ -69,6 +69,15 @@ module "eks" {
     "k8s.io/cluster-autoscaler/${var.cluster_name}" : "true"  }
 }
 
+manage_aws_auth_configmap = true
+  aws_auth_roles = [
+    {
+      rolearn  = module.eks_admins_iam_role.iam_role_arn
+      username = module.eks_admins_iam_role.iam_role_name
+      groups   = ["system:masters"]
+    },
+  ]
+
 
 #   # 관리형 노드 그룹 사용 (기본 설정)
 #   eks_managed_node_group_defaults = {
