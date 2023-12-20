@@ -17,7 +17,7 @@ data "aws_eks_cluster" "default" {
 }
 
 data "aws_eks_cluster_auth" "default" {
-  name = loca.cluster_name
+  name = local.cluster_name
 }
 
 provider "kubernetes" {

@@ -10,8 +10,6 @@ module "eks" {
 
   vpc_id     = aws_vpc.main.id
   subnet_ids = [
-    aws_subnet.public_subnet_a.id,
-    aws_subnet.public_subnet_c.id,
     aws_subnet.private_subnet_a.id,
     aws_subnet.private_subnet_c.id,
   ]
