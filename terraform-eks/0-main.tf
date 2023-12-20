@@ -13,11 +13,11 @@ provider "aws" {
 }
 
 data "aws_eks_cluster" "default" {
-  name = "devlink-eks"
+  name = local.cluster_name
 }
 
 data "aws_eks_cluster_auth" "default" {
-  name = "devlink-eks"
+  name = loca.cluster_name
 }
 
 provider "kubernetes" {
