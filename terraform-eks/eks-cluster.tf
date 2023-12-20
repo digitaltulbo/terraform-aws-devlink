@@ -63,11 +63,11 @@ module "eks" {
 }
 
 data "aws_eks_cluster" "default" {
-  name = devlink-eks
+  name = "devlink-eks"
 }
 
 data "aws_eks_cluster_auth" "default" {
-  name = devlink-eks
+  name = "devlink-eks"
 }
 
 provider "kubernetes" {
