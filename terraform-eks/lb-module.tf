@@ -45,7 +45,7 @@ resource "aws_iam_role_policy" "controller" {
   role        = module.lb_controller_role.iam_role_name
 }
 
-resource "helm_release" "release" {
+resource "helm_release" "aws-load-balancer-controller" {
   name       = "aws-load-balancer-controller"
   chart      = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
@@ -54,7 +54,7 @@ resource "helm_release" "release" {
   dynamic "set" {
     for_each = {
       "clusterName"           = module.eks.cluster_id
-      "serviceAccount.create" = "true"
+      "serviceAccount.create" = "false" # 원래는 true
       "serviceAccount.name"   = local.lb_controller_service_account_name
       "region"                = "ap-northeast-2"
       "vpcId"                 = aws_vpc.main.id
