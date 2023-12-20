@@ -8,9 +8,13 @@ module "eks" {
   cluster_endpoint_private_access = false
   cluster_endpoint_public_access  = true
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
-
+  vpc_id     = aws_vpc.main.id
+  subnet_ids = [
+    aws_subnet.public_subnet_a.id,
+    aws_subnet.public_subnet_c.id,
+    aws_subnet.private_subnet_a.id,
+    aws_subnet.private_subnet_c.id,
+  ]
   enable_irsa = true
 
   eks_managed_node_group_defaults = {
