@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.20.0"
 
-  cluster_name    = "devlink-eks"
+  cluster_name    = local.cluster_name
   cluster_version = "1.28"
 
   cluster_endpoint_private_access = false
