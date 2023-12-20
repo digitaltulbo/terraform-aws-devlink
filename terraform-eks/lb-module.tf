@@ -15,35 +15,35 @@ provider "helm" {
   }
 }
 
-module "lb_controller_role" {
-  source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+# module "lb_controller_role" {
+#   source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
 
-  create_role = true
+#   create_role = true
 
-  role_name        = local.lb_controller_iam_role_name
-  role_path        = "/"
-  role_description = "Used by AWS Load Balancer Controller for EKS"
+#   role_name        = local.lb_controller_iam_role_name
+#   role_path        = "/"
+#   role_description = "Used by AWS Load Balancer Controller for EKS"
 
-  role_permissions_boundary_arn = ""
+#   role_permissions_boundary_arn = ""
 
-  provider_url = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
-  oidc_fully_qualified_subjects = [
-    "system:serviceaccount:kube-system:${local.lb_controller_service_account_name}"
-  ]
-  oidc_fully_qualified_audiences = [
-    "sts.amazonaws.com"
-  ]
-}
+#   provider_url = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
+#   oidc_fully_qualified_subjects = [
+#     "system:serviceaccount:kube-system:${local.lb_controller_service_account_name}"
+#   ]
+#   oidc_fully_qualified_audiences = [
+#     "sts.amazonaws.com"
+#   ]
+# }
 
-data "http" "iam_policy" {
-  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.0/docs/install/iam_policy.json"
-}
+# data "http" "iam_policy" {
+#   url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.0/docs/install/iam_policy.json"
+# }
 
-resource "aws_iam_role_policy" "controller" {
-  name_prefix = "AWSLoadBalancerControllerIAMPolicy"
-  policy      = data.http.iam_policy.body
-  role        = module.lb_controller_role.iam_role_name
-}
+# resource "aws_iam_role_policy" "controller" {
+#   name_prefix = "AWSLoadBalancerControllerIAMPolicy"
+#   policy      = data.http.iam_policy.body
+#   role        = module.lb_controller_role.iam_role_name
+# }
 
 # resource "helm_release" "aws-load-balancer-controller" {
 #   name       = "aws-load-balancer-controller"
@@ -102,4 +102,18 @@ resource "helm_release" "aws-load-balancer-controller" {
 #     aws_eks_node_group.private-nodes,
 #     aws_iam_role_policy_attachment.aws_load_balancer_controller_attach
 #   ]
+}
+
+//Metrics Server
+resource "helm_release" "metrics_server" {
+  namespace        = "kube-system"
+  name             = "metrics-server"
+  chart            = "metrics-server"
+  version          = "3.8.2"
+  repository       = "https://kubernetes-sigs.github.io/metrics-server/"
+  create_namespace = true
+  set {
+    name  = "replicas"
+    value = "1"
+  }
 }
