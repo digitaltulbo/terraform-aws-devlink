@@ -80,7 +80,7 @@ resource "helm_release" "aws-load-balancer-controller" {
 
   set {
     name  = "clusterName"
-    value = aws_eks_cluster.devlink.id
+    value = module.eks.cluster_id
   }
 
   set {
@@ -90,7 +90,7 @@ resource "helm_release" "aws-load-balancer-controller" {
 
   set {
     name  = "serviceAccount.name"
-    value = "aws-load-balancer-controller"
+    value = local.lb_controller_service_account_name
   }
 
   set {
@@ -98,8 +98,8 @@ resource "helm_release" "aws-load-balancer-controller" {
     value = aws_iam_role.aws_load_balancer_controller.arn
   }
 
-  depends_on = [
-    aws_eks_node_group.private-nodes,
-    aws_iam_role_policy_attachment.aws_load_balancer_controller_attach
-  ]
+#   depends_on = [
+#     aws_eks_node_group.private-nodes,
+#     aws_iam_role_policy_attachment.aws_load_balancer_controller_attach
+#   ]
 }
